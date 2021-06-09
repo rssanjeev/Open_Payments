@@ -2,6 +2,7 @@ import pandas as pd
 import urllib.request, json 
 from urllib.request import urlopen
 from pandas.io.json import json_normalize
+from sodapy import Socrata
 
 #dev_data_url = 'https://openpaymentsdata.cms.gov/resource/ap6w-xznw.json'
 #dev_data = pd.read_json(dev_data_url)
@@ -20,5 +21,48 @@ Api_Endpoints = dev_data['api_endpoint'].tolist()
 for x,y in zip(File_Names, Api_Endpoints):
     globals()[name] = pd.read_json(y)
 
-General_Payment_Data_2013 = pd.read_json('https://openpaymentsdata.cms.gov/resource/gtwa-6ahd.json')
-General_Payment_Data_2013.head()
+G2013 = pd.read_json('https://openpaymentsdata.cms.gov/resource/gtwa-6ahd.json')
+
+G2014 = pd.read_json('https://openpaymentsdata.cms.gov/resource/usfr-9d94.json')
+
+G2015 = pd.read_json('https://openpaymentsdata.cms.gov/resource/wvg5-mk6b.json')
+
+G2016 = pd.read_json('https://openpaymentsdata.cms.gov/resource/utn9-gvfr.json')
+
+G2017 = pd.read_json('https://openpaymentsdata.cms.gov/resource/6e8i-9z2m.json')
+G2017 = pd.read_csv('https://openpaymentsdata.cms.gov/api/views/6e8i-9z2m/rows.csv?accessType=DOWNLOAD')
+
+G2018 = pd.read_json('https://openpaymentsdata.cms.gov/resource/neeg-3s2r.json')
+
+G2019 = pd.read_json('https://openpaymentsdata.cms.gov/resource/svgu-ws3x.json')
+
+G2013_Col = G2013.columns.tolist()
+for x in range(len(G2013_Col)):
+    G2013_Col[x] = G2013_Col[x].upper()
+
+G2014_Col = G2014.columns.tolist()
+for x in range(len(G2014_Col)):
+    G2014_Col[x] = G2014_Col[x].upper()
+
+G2015_Col = G2015.columns.tolist()
+for x in range(len(G2015_Col)):
+    G2015_Col[x] = G2015_Col[x].upper()
+
+G2016_Col = G2016.columns.tolist()
+for x in range(len(G2016_Col)):
+    G2016_Col[x] = G2016_Col[x].upper()
+
+G2017_Col = G2017.columns.tolist()
+for x in range(len(G2017_Col)):
+    G2017_Col[x] = G2017_Col[x].upper()
+
+G2018_Col = G2018.columns.tolist()
+for x in range(len(G2018_Col)):
+    G2018_Col[x] = G2018_Col[x].upper()
+
+G2019_Col = G2019.columns.tolist()
+for x in range(len(G2019_Col)):
+    G2019_Col[x] = G2019_Col[x].upper()
+
+data_columns = pd.DataFrame({'G2013_Col': pd.Series(G2013_Col), 'G2014_Col': pd.Series(G2014_Col), 'G2015_Col': pd.Series(G2015_Col), 'G2016_Col': pd.Series(G2016_Col), 'G2017_Col': pd.Series(G2017_Col), 'G2018_Col': pd.Series(G2018_Col), 'G2019_Col': pd.Series(G2019_Col)})
+data_columns.to_csv('data_columns.csv')
